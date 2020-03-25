@@ -8,6 +8,7 @@ public class KodillaGallowsGameApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(KodillaGallowsGameApplication.class, args);
+        System.out.println("Hello");
     }
 
 }
