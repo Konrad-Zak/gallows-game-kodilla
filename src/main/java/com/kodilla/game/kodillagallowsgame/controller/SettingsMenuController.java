@@ -4,6 +4,7 @@ import com.kodilla.game.kodillagallowsgame.io.FileCreator;
 import com.kodilla.game.kodillagallowsgame.io.FileReader;
 import com.kodilla.game.kodillagallowsgame.io.FileWriter;
 import com.kodilla.game.kodillagallowsgame.model.SettingsMenuModel;
+import com.kodilla.game.kodillagallowsgame.model.SettingsMenuViewModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
@@ -17,6 +18,7 @@ public class SettingsMenuController {
     private FileWriter fileWriter = new FileWriter();
     private FileReader fileReader = new FileReader();
     private SettingsMenuModel settingsMenuModel;
+    private SettingsMenuViewModel settingsMenuViewModel;
 
     @FXML
     CheckBox buttonSport;
@@ -52,14 +54,21 @@ public class SettingsMenuController {
 
     @FXML
     public void initialize(){
-        System.out.println(fileCreator.settingsFileExists());
+       /* System.out.println(fileCreator.settingsFileExists());
         if (fileCreator.settingsFileExists()){
             settingsMenuModel = fileReader.readSettingsModel();
             System.out.println("sport "+settingsMenuModel.getCheckBoxSport());
         } else {
             settingsMenuModel = new SettingsMenuModel();
-        }
-        buttonSport.setSelected(settingsMenuModel.getCheckBoxSport());
+        }*/
+       //SettingsMenuViewModel settingsMenuViewModel = new SettingsMenuViewModel(settingsMenuModel);
+        settingsMenuModel = fileReader.readSettingsModel();
+        System.out.println("sport "+settingsMenuModel.getCheckBoxSport());
+        settingsMenuViewModel = new SettingsMenuViewModel(settingsMenuModel);
+        buttonSport.selectedProperty().bindBidirectional(settingsMenuViewModel.checkBoxSportProperty());
+
+
+        /*buttonSport.setSelected(settingsMenuModel.getCheckBoxSport());
             //category button
             buttonSport.setOnAction(event -> {
                 if (buttonSport.isSelected()) {
@@ -68,7 +77,7 @@ public class SettingsMenuController {
                     settingsMenuModel.setCheckBoxSport(false);
                 }
                 System.out.println(settingsMenuModel.getCheckBoxSport());
-            });
+            });*/
 
        // buttonAutomotive.selectedProperty().bindBidirectional(settingsMenuModel.checkBoxAutomotiveProperty());
       //  buttonLife.selectedProperty().bindBidirectional(settingsMenuModel.checkBoxLifeProperty());
@@ -89,7 +98,8 @@ public class SettingsMenuController {
     }
 
     public void clickSport(){
-      //  buttonSport.selectedProperty().bindBidirectional(settingsMenuModel.checkBoxSportProperty());
+        settingsMenuModel.setCheckBoxSport(buttonSport.isSelected());
+        System.out.println(buttonSport.isSelected() + " selec");
     }
 
     public void setMainController(MainController mainController) {
