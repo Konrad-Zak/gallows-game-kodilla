@@ -1,5 +1,6 @@
 package com.kodilla.game.kodillagallowsgame;
 
+import com.kodilla.game.kodillagallowsgame.io.FileCreator;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class App extends Application {
+
     private VBox vBox;
     public static void main(String[] args) {
         launch(args);
