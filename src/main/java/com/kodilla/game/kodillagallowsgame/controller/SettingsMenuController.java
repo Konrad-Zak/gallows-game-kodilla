@@ -1,105 +1,105 @@
 package com.kodilla.game.kodillagallowsgame.controller;
 
-import com.kodilla.game.kodillagallowsgame.io.FileCreator;
 import com.kodilla.game.kodillagallowsgame.io.FileReader;
 import com.kodilla.game.kodillagallowsgame.io.FileWriter;
 import com.kodilla.game.kodillagallowsgame.model.SettingsMenuModel;
-import com.kodilla.game.kodillagallowsgame.model.SettingsMenuViewModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
-
+import javafx.scene.control.ToggleGroup;
 
 
 public class SettingsMenuController {
 
     private MainController mainController;
-    private FileCreator fileCreator = new FileCreator();
+    private SettingsMenuModel settingsMenuModel;
+
     private FileWriter fileWriter = new FileWriter();
     private FileReader fileReader = new FileReader();
-    private SettingsMenuModel settingsMenuModel;
-    private SettingsMenuViewModel settingsMenuViewModel;
 
     @FXML
-    CheckBox buttonSport;
+    CheckBox checkBoxSport;
 
     @FXML
-    CheckBox buttonAutomotive;
+    CheckBox checkBoxAutomotive;
 
     @FXML
-    CheckBox buttonLife;
+    CheckBox checkBoxLife;
 
     @FXML
-    CheckBox buttonHouse;
+    CheckBox checkBoxHouse;
 
     @FXML
-    CheckBox buttonGames;
+    CheckBox checkBoxGames;
 
     @FXML
-    RadioButton buttonEasy;
+    RadioButton radioButtonEasy;
 
     @FXML
-    RadioButton buttonMedium;
+    RadioButton radioButtonMedium;
 
     @FXML
-    RadioButton buttonHard;
+    RadioButton radioButtonHard;
+
+    @FXML
+    ToggleGroup levelChoice;
 
     @FXML
     private void goBack(){
-
-        //fileCreator.createSettingsFile();
         fileWriter.settingsWrite(settingsMenuModel);
         mainController.loadMenu();
     }
 
     @FXML
     public void initialize(){
-       /* System.out.println(fileCreator.settingsFileExists());
-        if (fileCreator.settingsFileExists()){
+        loadFile();
+        setControllerValue();
+    }
+
+    private void loadFile(){
+        if (fileWriter.settingsFileExists()){
             settingsMenuModel = fileReader.readSettingsModel();
-            System.out.println("sport "+settingsMenuModel.getCheckBoxSport());
         } else {
             settingsMenuModel = new SettingsMenuModel();
-        }*/
-       //SettingsMenuViewModel settingsMenuViewModel = new SettingsMenuViewModel(settingsMenuModel);
-        settingsMenuModel = fileReader.readSettingsModel();
-        System.out.println("sport "+settingsMenuModel.getCheckBoxSport());
-        settingsMenuViewModel = new SettingsMenuViewModel(settingsMenuModel);
-        buttonSport.selectedProperty().bindBidirectional(settingsMenuViewModel.checkBoxSportProperty());
+        }
+    }
 
-
-        /*buttonSport.setSelected(settingsMenuModel.getCheckBoxSport());
-            //category button
-            buttonSport.setOnAction(event -> {
-                if (buttonSport.isSelected()) {
-                    settingsMenuModel.setCheckBoxSport(true);
-                } else {
-                    settingsMenuModel.setCheckBoxSport(false);
-                }
-                System.out.println(settingsMenuModel.getCheckBoxSport());
-            });*/
-
-       // buttonAutomotive.selectedProperty().bindBidirectional(settingsMenuModel.checkBoxAutomotiveProperty());
-      //  buttonLife.selectedProperty().bindBidirectional(settingsMenuModel.checkBoxLifeProperty());
-      //  buttonHouse.selectedProperty().bindBidirectional(settingsMenuModel.checkBoxHouseProperty());
-      //  buttonGames.selectedProperty().bindBidirectional(settingsMenuModel.checkBoxGamesProperty());
-
-        //level game button
-       // buttonEasy.selectedProperty().bindBidirectional(settingsMenuModel.radioLevelEasyProperty());
-       // buttonMedium.selectedProperty().bindBidirectional(settingsMenuModel.radioLevelMediumProperty());
-       // buttonHard.selectedProperty().bindBidirectional(settingsMenuModel.radioLevelHardProperty());
+    private void setControllerValue(){
+        checkBoxSport.setSelected(settingsMenuModel.getCheckBoxSport());
+        checkBoxAutomotive.setSelected(settingsMenuModel.getCheckBoxAutomotive());
+        checkBoxLife.setSelected(settingsMenuModel.getCheckBoxLife());
+        checkBoxHouse.setSelected(settingsMenuModel.getCheckBoxHouse());
+        checkBoxGames.setSelected(settingsMenuModel.getCheckBoxGames());
+        radioButtonEasy.setSelected(settingsMenuModel.getRadioButtonEasy());
+        radioButtonMedium.setSelected(settingsMenuModel.getRadioButtonMedium());
+        radioButtonHard.setSelected(settingsMenuModel.getRadioButtonHard());
     }
 
     @FXML
-    public void click(){
-      //  System.out.println("easy: "+ settingsMenuModel.radioLevelEasyProperty());
-      //  System.out.println("medium: "+ settingsMenuModel.isRadioLevelMedium());
-      //  System.out.println("hard: " + settingsMenuModel.isRadioLevelHard());
+    public void clickLevelChoice(){
+        settingsMenuModel.setRadioButtonEasy(radioButtonEasy.isSelected());
+        settingsMenuModel.setRadioButtonMedium(radioButtonMedium.isSelected());
+        settingsMenuModel.setRadioButtonHard(radioButtonHard.isSelected());
     }
 
-    public void clickSport(){
-        settingsMenuModel.setCheckBoxSport(buttonSport.isSelected());
-        System.out.println(buttonSport.isSelected() + " selec");
+    public void clickCheckBoxSport(){
+        settingsMenuModel.setCheckBoxSport(checkBoxSport.isSelected());
+    }
+
+    public void clickCheckBoxAutomotive(){
+        settingsMenuModel.setCheckBoxAutomotive(checkBoxAutomotive.isSelected());
+    }
+
+    public void clickCheckBoxLife(){
+        settingsMenuModel.setCheckBoxLife(checkBoxLife.isSelected());
+    }
+
+    public void clickCheckBoxHouse(){
+        settingsMenuModel.setCheckBoxHouse(checkBoxHouse.isSelected());
+    }
+
+    public void clickCheckBoxGames(){
+        settingsMenuModel.setCheckBoxGames(checkBoxGames.isSelected());
     }
 
     public void setMainController(MainController mainController) {

@@ -10,79 +10,73 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kodilla.game.kodillagallowsgame.controller.SettingsMenuController">
-   <children>
-      <Label text="Settings">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.kodilla.game.kodillagallowsgame.controller.SettingsMenuController">
+   <Label text="Settings">
+      <font>
+         <Font size="35.0"/>
+      </font>
+      <padding>
+         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+      </padding>
+      <VBox.margin>
+         <Insets top="20.0"/>
+      </VBox.margin>
+   </Label>
+   <VBox alignment="BOTTOM_LEFT" prefHeight="102.0" prefWidth="600.0">
+      <Label text="Categories:">
          <font>
-            <Font size="35.0" />
+            <Font size="20.0"/>
          </font>
          <padding>
-            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
          </padding>
-         <VBox.margin>
-            <Insets top="20.0" />
-         </VBox.margin>
       </Label>
-      <VBox alignment="BOTTOM_LEFT" prefHeight="102.0" prefWidth="600.0">
-         <children>
-            <Label text="Categories:">
-               <font>
-                  <Font size="20.0" />
-               </font>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-            </Label>
-         </children>
-      </VBox>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
-         <children>
-            <CheckBox fx:id="buttonSport" mnemonicParsing="false" onAction="#clickSport" text="Sport" />
-            <CheckBox fx:id="buttonAutomotive" mnemonicParsing="false" text="Automotive" />
-            <CheckBox fx:id="buttonLife" mnemonicParsing="false" text="Life" />
-            <CheckBox fx:id="buttonHouse" mnemonicParsing="false" text="House" />
-            <CheckBox fx:id="buttonGames" mnemonicParsing="false" text="Games" />
-         </children>
+   </VBox>
+   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+      <padding>
+         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+      </padding>
+      <CheckBox fx:id="checkBoxSport" mnemonicParsing="false" onAction="#clickCheckBoxSport" text="Sport"/>
+      <CheckBox fx:id="checkBoxAutomotive" mnemonicParsing="false" onAction="#clickCheckBoxAutomotive"
+                text="Automotive"/>
+      <CheckBox fx:id="checkBoxLife" mnemonicParsing="false" onAction="#clickCheckBoxLife" text="Life"/>
+      <CheckBox fx:id="checkBoxHouse" mnemonicParsing="false" onAction="#clickCheckBoxHouse" text="House"/>
+      <CheckBox fx:id="checkBoxGames" mnemonicParsing="false" onAction="#clickCheckBoxGames" text="Games"/>
+   </HBox>
+   <VBox prefHeight="81.0" prefWidth="600.0">
+      <VBox.margin>
+         <Insets top="20.0"/>
+      </VBox.margin>
+      <Label alignment="BOTTOM_LEFT" text="Difficulty level:">
          <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
          </padding>
-      </HBox>
-      <VBox prefHeight="81.0" prefWidth="600.0">
-         <children>
-            <Label alignment="BOTTOM_LEFT" text="Difficulty level:">
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-         </children>
-         <VBox.margin>
-            <Insets top="20.0" />
-         </VBox.margin>
-      </VBox>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
-         <children>
-            <RadioButton fx:id="buttonEasy" mnemonicParsing="false" onAction="#click" text="Easy">
-               <toggleGroup>
-                  <ToggleGroup fx:id="levelChoice" />
-               </toggleGroup></RadioButton>
-            <RadioButton fx:id="buttonMedium" mnemonicParsing="false" onAction="#click" selected="true" text="Medium" toggleGroup="$levelChoice" />
-            <RadioButton fx:id="buttonHard" mnemonicParsing="false" onAction="#click" text="Hard" toggleGroup="$levelChoice" />
-         </children>
-         <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </padding>
-      </HBox>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-         <children>
-            <Button id="buttonReturn" mnemonicParsing="false" onAction="#goBack" text="Return">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Button>
-         </children>
-      </VBox>
-   </children>
+         <font>
+            <Font size="20.0"/>
+         </font>
+      </Label>
+   </VBox>
+   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+      <padding>
+         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+      </padding>
+      <RadioButton fx:id="radioButtonEasy" mnemonicParsing="false" onAction="#clickLevelChoice" text="Easy">
+         <toggleGroup>
+            <ToggleGroup fx:id="levelChoice"/>
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="radioButtonMedium" mnemonicParsing="false" onAction="#clickLevelChoice" text="Medium"
+                   toggleGroup="$levelChoice"/>
+      <RadioButton fx:id="radioButtonHard" mnemonicParsing="false" onAction="#clickLevelChoice" text="Hard"
+                   toggleGroup="$levelChoice"/>
+   </HBox>
+   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+      <Button id="buttonReturn" mnemonicParsing="false" onAction="#goBack" text="Return">
+         <font>
+            <Font size="15.0"/>
+         </font>
+      </Button>
+   </VBox>
 </VBox>
