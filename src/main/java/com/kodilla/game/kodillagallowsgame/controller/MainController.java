@@ -1,5 +1,6 @@
 package com.kodilla.game.kodillagallowsgame.controller;
 
+import com.kodilla.game.kodillagallowsgame.model.SettingsMenuModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.VBox;

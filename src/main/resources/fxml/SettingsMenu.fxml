@@ -5,6 +5,7 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -36,11 +37,11 @@
       </VBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
          <children>
-            <CheckBox id="buttonSport" mnemonicParsing="false" selected="true" text="Sport" />
-            <CheckBox id="buttonAutomotive" mnemonicParsing="false" selected="true" text="Automotive" />
-            <CheckBox id="buttonLife" mnemonicParsing="false" selected="true" text="Life" />
-            <CheckBox id="buttonHouse" mnemonicParsing="false" selected="true" text="House" />
-            <CheckBox id="buttonGames" mnemonicParsing="false" selected="true" text="Games" />
+            <CheckBox fx:id="buttonSport" mnemonicParsing="false" onAction="#clickSport" text="Sport" />
+            <CheckBox fx:id="buttonAutomotive" mnemonicParsing="false" text="Automotive" />
+            <CheckBox fx:id="buttonLife" mnemonicParsing="false" text="Life" />
+            <CheckBox fx:id="buttonHouse" mnemonicParsing="false" text="House" />
+            <CheckBox fx:id="buttonGames" mnemonicParsing="false" text="Games" />
          </children>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -63,9 +64,12 @@
       </VBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
          <children>
-            <RadioButton id="buttonEasy" mnemonicParsing="false" text="Easy" />
-            <RadioButton id="buttonMedium" mnemonicParsing="false" selected="true" text="Medium" />
-            <RadioButton id="buttonHard" mnemonicParsing="false" text="Hard" />
+            <RadioButton fx:id="buttonEasy" mnemonicParsing="false" onAction="#click" text="Easy">
+               <toggleGroup>
+                  <ToggleGroup fx:id="levelChoice" />
+               </toggleGroup></RadioButton>
+            <RadioButton fx:id="buttonMedium" mnemonicParsing="false" onAction="#click" selected="true" text="Medium" toggleGroup="$levelChoice" />
+            <RadioButton fx:id="buttonHard" mnemonicParsing="false" onAction="#click" text="Hard" toggleGroup="$levelChoice" />
          </children>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

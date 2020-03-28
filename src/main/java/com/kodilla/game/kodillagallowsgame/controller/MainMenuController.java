@@ -1,5 +1,6 @@
 package com.kodilla.game.kodillagallowsgame.controller;
 
+import com.kodilla.game.kodillagallowsgame.io.FileCreator;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,9 +11,11 @@ import java.io.IOException;
 public class MainMenuController {
 
     private String source;
-    private FXMLLoader fxmlLoader = new FXMLLoader();
-    private MainController mainController;
     private VBox vBox;
+    private MainController mainController;
+    private FXMLLoader fxmlLoader = new FXMLLoader();
+
+
 
     @FXML
     private void startGame(){
@@ -33,6 +36,7 @@ public class MainMenuController {
         SettingsMenuController settingsMenuController = fxmlLoader.getController();
         settingsMenuController.setMainController(mainController);
         mainController.setScreen(vBox);
+
     }
 
     @FXML
