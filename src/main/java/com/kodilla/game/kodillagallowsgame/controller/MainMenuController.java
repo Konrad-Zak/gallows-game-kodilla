@@ -1,6 +1,5 @@
 package com.kodilla.game.kodillagallowsgame.controller;
 
-import com.kodilla.game.kodillagallowsgame.io.FileCreator;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
