@@ -45,34 +45,9 @@ public class SettingsMenuController {
     ToggleGroup levelChoice;
 
     @FXML
-    private void goBack(){
-        fileWriter.settingsWrite(settingsMenuModel);
-        mainController.loadMenu();
-    }
-
-    @FXML
     public void initialize(){
         loadFile();
         setControllerValue();
-    }
-
-    private void loadFile(){
-        if (fileWriter.settingsFileExists()){
-            settingsMenuModel = fileReader.readSettingsModel();
-        } else {
-            settingsMenuModel = new SettingsMenuModel();
-        }
-    }
-
-    private void setControllerValue(){
-        checkBoxSport.setSelected(settingsMenuModel.getCheckBoxSport());
-        checkBoxAutomotive.setSelected(settingsMenuModel.getCheckBoxAutomotive());
-        checkBoxLife.setSelected(settingsMenuModel.getCheckBoxLife());
-        checkBoxHouse.setSelected(settingsMenuModel.getCheckBoxHouse());
-        checkBoxGames.setSelected(settingsMenuModel.getCheckBoxGames());
-        radioButtonEasy.setSelected(settingsMenuModel.getRadioButtonEasy());
-        radioButtonMedium.setSelected(settingsMenuModel.getRadioButtonMedium());
-        radioButtonHard.setSelected(settingsMenuModel.getRadioButtonHard());
     }
 
     @FXML
@@ -104,5 +79,30 @@ public class SettingsMenuController {
 
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
+    }
+
+    @FXML
+    private void goBack(){
+        fileWriter.settingsWrite(settingsMenuModel);
+        mainController.loadMenu();
+    }
+
+    private void loadFile(){
+        if (fileWriter.settingsFileExists()){
+            settingsMenuModel = fileReader.readSettingsModel();
+        } else {
+            settingsMenuModel = new SettingsMenuModel();
+        }
+    }
+
+    private void setControllerValue(){
+        checkBoxSport.setSelected(settingsMenuModel.getCheckBoxSport());
+        checkBoxAutomotive.setSelected(settingsMenuModel.getCheckBoxAutomotive());
+        checkBoxLife.setSelected(settingsMenuModel.getCheckBoxLife());
+        checkBoxHouse.setSelected(settingsMenuModel.getCheckBoxHouse());
+        checkBoxGames.setSelected(settingsMenuModel.getCheckBoxGames());
+        radioButtonEasy.setSelected(settingsMenuModel.getRadioButtonEasy());
+        radioButtonMedium.setSelected(settingsMenuModel.getRadioButtonMedium());
+        radioButtonHard.setSelected(settingsMenuModel.getRadioButtonHard());
     }
 }

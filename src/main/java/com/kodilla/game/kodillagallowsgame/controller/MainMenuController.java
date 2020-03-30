@@ -14,7 +14,9 @@ public class MainMenuController {
     private MainController mainController;
     private FXMLLoader fxmlLoader = new FXMLLoader();
 
-
+    public void setMainController(MainController mainController) {
+        this.mainController = mainController;
+    }
 
     @FXML
     private void startGame(){
@@ -26,7 +28,6 @@ public class MainMenuController {
         mainController.setScreen(vBox);
     }
 
-
     @FXML
     private void openSettings(){
         source = "/fxml/SettingsMenu.fxml";
@@ -35,16 +36,11 @@ public class MainMenuController {
         SettingsMenuController settingsMenuController = fxmlLoader.getController();
         settingsMenuController.setMainController(mainController);
         mainController.setScreen(vBox);
-
     }
 
     @FXML
     private void exit(){
         Platform.exit();
-    }
-
-    public void setMainController(MainController mainController) {
-        this.mainController = mainController;
     }
 
     private void switchedScreen(String source){

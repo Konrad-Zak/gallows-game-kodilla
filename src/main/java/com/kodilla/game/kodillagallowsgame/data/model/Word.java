@@ -1,4 +1,4 @@
-package com.kodilla.game.kodillagallowsgame.data;
+package com.kodilla.game.kodillagallowsgame.data.model;
 
 public class Word {
 
