@@ -68,7 +68,7 @@ public class GameWindowController {
 
     @FXML
     private void endGame(){
-        fileWriter.gameStatusWrite(gameWindowModel);
+        //fileWriter.gameStatusWrite(gameWindowModel);
         gameWindowModel.setGameKeys(gameKeys);
         mainController.loadMenu();
     }

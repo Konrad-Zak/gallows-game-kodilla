@@ -2,12 +2,13 @@ package com.kodilla.game.kodillagallowsgame.data.category;
 
 import com.kodilla.game.kodillagallowsgame.data.model.Word;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Sport  implements Category{
-    private final static String CATEGORY = "Sport";
+public class Sport  implements Category,Serializable {
+    private static final long serialVersionUID = 3812017177081111111L;
     private List<Word> easyLevelWords = new ArrayList<>();
     private List<Word> mediumLevelWords = new ArrayList<>();
     private List<Word> hardLevelWords = new ArrayList<>();
@@ -28,17 +29,17 @@ public class Sport  implements Category{
 
     @Override
     public Word getMediumWord() {
-        return null;
+        return easyLevelWords.get(0);
     }
 
     @Override
     public Word getHardWord() {
-        return null;
+        return easyLevelWords.get(0);
     }
 
     @Override
     public String getCategoryName() {
-        return CATEGORY;
+        return "Sport";
     }
 
     private void initializeEasyList(){
