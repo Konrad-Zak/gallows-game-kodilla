@@ -13,7 +13,6 @@ public class GameWindowModel implements Serializable {
     private static final long serialVersionUID = 3812017177088221111L;
 
     private Map<Character,Boolean> gameKeys;
-    private List<Category> categories;
     private Category category;
     private Word word;
     private SettingsMenuModel settingsMenuModel;
@@ -61,11 +60,26 @@ public class GameWindowModel implements Serializable {
     }
 
     private void initializeWord(){
-        CategoryList categoryList = new CategoryList();
-        categories = categoryList.getCategoryWord();
-        category = categories.get(0);
-
+        getCategoryGame();
         getLevelWord();
+    }
+
+    private void getCategoryGame(){
+        List<String> categoryList;
+        CategoryList list = new CategoryList();
+        Random random = new Random();
+        Map<String, Category> categories = list.getCategoryWord();
+        Map<String, Boolean> checkBoxMap = settingsMenuModel.getCheckBoxMap();
+
+        categoryList = checkBoxMap.entrySet().stream()
+                .filter(Map.Entry::getValue)
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+
+        System.out.println(categoryList);
+
+        int number = random.nextInt(categoryList.size());
+        category = categories.get(categoryList.get(number));
     }
 
     private void getLevelWord(){
@@ -77,4 +91,6 @@ public class GameWindowModel implements Serializable {
             word = category.getHardWord();
         }
     }
+
+
 }

@@ -2,12 +2,14 @@ package com.kodilla.game.data.category;
 
 import com.kodilla.game.data.model.Word;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Automotive implements Category{
+public class Automotive implements Category, Serializable {
 
+    private static final long serialVersionUID = 3812017177082222222L;
     private List<Word> easyLevelWords = new ArrayList<>();
     private List<Word> mediumLevelWords = new ArrayList<>();
     private List<Word> hardLevelWords = new ArrayList<>();

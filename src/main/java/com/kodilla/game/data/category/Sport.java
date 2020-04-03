@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Sport  implements Category,Serializable {
+
     private static final long serialVersionUID = 3812017177081111111L;
     private List<Word> easyLevelWords = new ArrayList<>();
     private List<Word> mediumLevelWords = new ArrayList<>();

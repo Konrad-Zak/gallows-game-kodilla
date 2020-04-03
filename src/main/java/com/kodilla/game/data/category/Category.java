@@ -11,4 +11,5 @@ public interface Category {
     Word getHardWord();
 
     String getCategoryName();
+
 }
