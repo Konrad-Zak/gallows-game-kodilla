@@ -1,6 +1,6 @@
-package com.kodilla.game.kodillagallowsgame.data.category;
+package com.kodilla.game.data.category;
 
-import com.kodilla.game.kodillagallowsgame.data.model.Word;
+import com.kodilla.game.data.model.Word;
 
 public interface Category {
 

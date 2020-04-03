@@ -1,4 +1,4 @@
-package com.kodilla.game.kodillagallowsgame.data.model;
+package com.kodilla.game.data.model;
 
 import java.io.Serializable;
 

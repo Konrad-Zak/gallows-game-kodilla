@@ -1,8 +1,8 @@
-package com.kodilla.game.kodillagallowsgame.controller;
+package com.kodilla.game.controller;
 
-import com.kodilla.game.kodillagallowsgame.io.FileReader;
-import com.kodilla.game.kodillagallowsgame.io.FileWriter;
-import com.kodilla.game.kodillagallowsgame.model.SettingsMenuModel;
+import com.kodilla.game.io.FileReader;
+import com.kodilla.game.io.FileWriter;
+import com.kodilla.game.model.SettingsMenuModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;

@@ -1,7 +1,7 @@
-package com.kodilla.game.kodillagallowsgame.io;
+package com.kodilla.game.io;
 
-import com.kodilla.game.kodillagallowsgame.model.GameWindowModel;
-import com.kodilla.game.kodillagallowsgame.model.SettingsMenuModel;
+import com.kodilla.game.model.GameWindowModel;
+import com.kodilla.game.model.SettingsMenuModel;
 
 import java.io.*;
 

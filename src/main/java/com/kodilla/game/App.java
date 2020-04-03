@@ -1,4 +1,4 @@
-package com.kodilla.game.kodillagallowsgame;
+package com.kodilla.game;
 
 import javafx.application.Application;
 import javafx.application.Platform;
