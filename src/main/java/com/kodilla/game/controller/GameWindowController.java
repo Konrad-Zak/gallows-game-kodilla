@@ -47,7 +47,6 @@ public class GameWindowController {
         word = gameWindowModel.getWordName();
         initMapWorld();
 
-        //initMapWorld();
         System.out.println(hashMap.size());
     }
 
@@ -84,29 +83,23 @@ public class GameWindowController {
 
     public void clickGameKey(){
         String result = gameToggleButton.getSelectedToggle().toString();
-        char kas = result.charAt(45);
-        System.out.println(kas);
+        char charToggleButton = result.charAt(45);
+        System.out.println(charToggleButton);
 
-        if(hashMap.containsKey(kas)){
-            ToggleButton toggleButton = hashMap.get(kas);
+        if(hashMap.containsKey(charToggleButton)){
+            ToggleButton toggleButton = hashMap.get(charToggleButton);
             toggleButton.setVisible(false);
         }
-        //hashMap.remove(my);
-        gameWindowModel.setFalseValue(kas);
+
+        gameWindowModel.setFalseValue(charToggleButton);
 
         for (int i = 0; i <word.length ; i++) {
-            if (word[i] == kas){
+            if (word[i] == charToggleButton){
                 Button button = buttons.get(i);
-                button.setText(Character.toString(kas));
+                button.setText(Character.toString(charToggleButton));
             }
 
         }
-
-       // buttons.setText(my);
-       // RadioButton radioButton = hashMap.get(my);
-       // radioButton.setDisable(true);
-
-
 
 
     }
