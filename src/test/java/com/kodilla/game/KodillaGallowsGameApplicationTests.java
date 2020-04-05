@@ -1,4 +1,4 @@
-package com.kodilla.game.kodillagallowsgame;
+package com.kodilla.game;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

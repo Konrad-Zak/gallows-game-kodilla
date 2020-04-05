@@ -1,4 +1,4 @@
-package com.kodilla.game.kodillagallowsgame.io;
+package com.kodilla.game.io;
 
 
 import java.io.*;

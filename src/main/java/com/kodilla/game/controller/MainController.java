@@ -1,4 +1,4 @@
-package com.kodilla.game.kodillagallowsgame.controller;
+package com.kodilla.game.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

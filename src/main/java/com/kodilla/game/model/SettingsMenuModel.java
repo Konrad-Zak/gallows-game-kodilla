@@ -1,9 +1,8 @@
-package com.kodilla.game.kodillagallowsgame.model;
-
-
-
+package com.kodilla.game.model;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 public final class SettingsMenuModel implements Serializable{
 
@@ -18,6 +17,7 @@ public final class SettingsMenuModel implements Serializable{
     private Boolean radioButtonEasy;
     private Boolean radioButtonMedium;
     private Boolean radioButtonHard;
+
 
 
     public SettingsMenuModel() {
@@ -95,4 +95,13 @@ public final class SettingsMenuModel implements Serializable{
         this.checkBoxGames = checkBoxGames;
     }
 
+    public Map<String,Boolean> getCheckBoxMap(){
+        Map<String,Boolean> map = new HashMap<>();
+        map.put("Sport",checkBoxSport);
+        map.put("Automotive",checkBoxAutomotive);
+        map.put("House",checkBoxHouse);
+        map.put("Life",checkBoxLife);
+        map.put("Games",checkBoxGames);
+        return map;
+    }
 }
