@@ -52,8 +52,6 @@ public class GameWindowController {
 
         labelCategory.setText(gameWindowModel.getNameCategory());
 
-        word = gameWindowModel.getWordName();
-        initMapWorld();
 
         System.out.println(hashMap.size());
     }
@@ -62,19 +60,21 @@ public class GameWindowController {
         if (fileWriter.gameStatusFileExists()){
             gameWindowModel = fileReader.readGameStatus();
             gameKeys = gameWindowModel.getGameKeys();
+            word = gameWindowModel.getWordName();
+            initMapWorld();
 
             for(Map.Entry<Character,Boolean> entry: gameKeys.entrySet()){
                 if(!entry.getValue()){
                     ToggleButton toggleButton = hashMap.get(entry.getKey());
                     toggleButton.setVisible(false);
-                } /*else {
+
                     for (int i = 0; i <word.length ; i++) {
                       if(entry.getKey() == word[i]){
                           Button button = buttons.get(i);
                           button.setText(Character.toString(entry.getKey()));
                       }
                     }
-                }*/
+                }
             }
             System.out.println(hashMap);
 
@@ -84,6 +84,8 @@ public class GameWindowController {
 
         } else {
             gameWindowModel = new GameWindowModel();
+            word = gameWindowModel.getWordName();
+            initMapWorld();
         }
     }
 
