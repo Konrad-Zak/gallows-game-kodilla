@@ -16,13 +16,13 @@ public class GameWindowModel implements Serializable {
     private Category category;
     private Word word;
     private SettingsMenuModel settingsMenuModel;
-
-
+    private int queueIterator;
 
     public GameWindowModel() {
         initializeMaps();
         loadSettingsMenu();
         initializeWord();
+        queueIterator = 0;
     }
 
     public void setFalseValue(Character character){
@@ -31,6 +31,7 @@ public class GameWindowModel implements Serializable {
     }
 
     public Map<Character, Boolean> getGameKeys() {
+        System.out.println("tabela" + gameKeys);
         return gameKeys;
     }
 
@@ -42,9 +43,7 @@ public class GameWindowModel implements Serializable {
         return word.getWord().toCharArray();
     }
 
-    public void setGameKeys(Map<Character, Boolean> gameKeys) {
-        this.gameKeys = gameKeys;
-    }
+
 
     private void initializeMaps(){
         List<Character> keys = Arrays.asList('Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P',
@@ -52,6 +51,7 @@ public class GameWindowModel implements Serializable {
 
         gameKeys = keys.stream()
                 .collect(Collectors.toMap(k -> k, k -> true));
+        System.out.println(gameKeys);
     }
 
     private void loadSettingsMenu(){
@@ -92,5 +92,11 @@ public class GameWindowModel implements Serializable {
         }
     }
 
+    public int getQueueIterator() {
+        return queueIterator;
+    }
 
+    public void addQueueIterator(){
+        queueIterator++;
+    }
 }
