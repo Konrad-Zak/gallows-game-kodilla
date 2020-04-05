@@ -1,16 +1,19 @@
 package com.kodilla.game.kodillagallowsgame.data;
 
+import com.kodilla.game.kodillagallowsgame.data.category.Category;
+import com.kodilla.game.kodillagallowsgame.data.category.Sport;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryList {
-    List<Object> game = new ArrayList<>();
+    List<Category> game = new ArrayList<>();
 
     public CategoryList() {
         game.add(new Sport());
     }
-    public String getName(){
+    public Category getName(){
 
-        return Sport.CATEGORY;
+        return game.get(0);
     }
 }

@@ -19,6 +19,14 @@ public class FileWriter {
         writeFile(object,GAME_STATUS);
     }
 
+    public boolean settingsFileExists(){
+        return fileSettings.exists();
+    }
+
+    public boolean gameStatusFileExists(){
+        return fileGame.exists();
+    }
+
     private void writeFile(Object object,String string){
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(string);
@@ -30,15 +38,6 @@ public class FileWriter {
             System.out.println("Error saving");
         }
     }
-
-    public boolean settingsFileExists(){
-        return fileSettings.exists();
-    }
-
-    public boolean gameStatusFileExists(){
-        return fileGame.exists();
-    }
-
 
 
 }

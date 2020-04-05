@@ -1,6 +1,9 @@
-package com.kodilla.game.kodillagallowsgame.data;
+package com.kodilla.game.kodillagallowsgame.data.model;
 
-public class Word {
+import java.io.Serializable;
+
+public class Word implements Serializable {
+    private static final long serialVersionUID = 3812000077081001111L;
 
     private String word;
     private String prompt;
