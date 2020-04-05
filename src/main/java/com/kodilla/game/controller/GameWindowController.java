@@ -1,6 +1,7 @@
 package com.kodilla.game.controller;
 
 import com.kodilla.game.data.ImageList;
+import com.kodilla.game.dialog.DialogUtils;
 import com.kodilla.game.io.FileReader;
 import com.kodilla.game.io.FileWriter;
 import com.kodilla.game.model.GameWindowModel;
@@ -20,6 +21,7 @@ public class GameWindowController {
     private char[] word;
     private String prompt;
 
+    private DialogUtils dialogUtils = new DialogUtils();
     private FileWriter fileWriter = new FileWriter();
     private FileReader fileReader = new FileReader();
     private Map<Character,ToggleButton> hashMap = new HashMap<>();
@@ -77,12 +79,15 @@ public class GameWindowController {
         if(!letterCorrect){
             gamePicture.setImage(imageQueue.poll());
             gameWindowModel.addQueueIterator();
+            injectInformationAlert();
         }
 
-        if(imageQueue.size()<2){
-            System.out.println(prompt);
-        }
+    }
 
+    private void injectInformationAlert(){
+        if(imageQueue.size() == 1){
+            dialogUtils.dialogLastChance(prompt);
+        }
     }
 
     private void loadFile(){
@@ -145,7 +150,10 @@ public class GameWindowController {
 
     @FXML
     private void endGame(){
-        //fileWriter.gameStatusWrite(gameWindowModel);
+        Optional<ButtonType> endConfirmButton = dialogUtils.confirmSaveGame();
+        if(imageQueue.size()>1 && endConfirmButton.isPresent() && endConfirmButton.get() == ButtonType.OK){
+            fileWriter.gameStatusWrite(gameWindowModel);
+        }
         mainController.loadMenu();
     }
 }
