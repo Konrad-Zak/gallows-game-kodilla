@@ -88,11 +88,7 @@ public class SettingsMenuController {
     }
 
     private void loadFile(){
-        if (fileWriter.settingsFileExists()){
-            settingsMenuModel = fileReader.readSettingsModel();
-        } else {
-            settingsMenuModel = new SettingsMenuModel();
-        }
+        settingsMenuModel = fileReader.readSettingsModel();
     }
 
     private void setControllerValue(){

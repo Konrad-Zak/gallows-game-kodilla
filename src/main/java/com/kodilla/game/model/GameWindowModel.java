@@ -43,7 +43,17 @@ public class GameWindowModel implements Serializable {
         return word.getWord().toCharArray();
     }
 
+    public String getWordPrompt(){
+        return word.getPrompt();
+    }
 
+    public int getQueueIterator() {
+        return queueIterator;
+    }
+
+    public void addQueueIterator(){
+        queueIterator++;
+    }
 
     private void initializeMaps(){
         List<Character> keys = Arrays.asList('Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P',
@@ -92,11 +102,4 @@ public class GameWindowModel implements Serializable {
         }
     }
 
-    public int getQueueIterator() {
-        return queueIterator;
-    }
-
-    public void addQueueIterator(){
-        queueIterator++;
-    }
 }
