@@ -16,6 +16,8 @@ public class FileReader {
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             settingsMenuModel = (SettingsMenuModel) objectInputStream.readObject();
             System.out.println("File read");
+            objectInputStream.close();
+            fileInputStream.close();
 
         } catch (ClassNotFoundException | IOException e){
             e.getStackTrace();
@@ -25,7 +27,7 @@ public class FileReader {
 
     public GameWindowModel readGameStatus(){
 
-        GameWindowModel gameWindowModel = new GameWindowModel();
+        GameWindowModel gameWindowModel = null;
         try{
 
             FileInputStream fileInputStream = new FileInputStream(FileWriter.GAME_STATUS);

@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
+import java.io.File;
 import java.util.*;
 
 public class GameWindowController {
@@ -80,11 +81,17 @@ public class GameWindowController {
         if(!letterCorrect){
             gamePicture.setImage(imageQueue.poll());
             gameWindowModel.addQueueIterator();
+            if (imageQueue.size()<2){
+                checkGameStatus();
+            }
+        }
+
+        if (imageQueue.size()<2){
             checkGameStatus();
         }
 
         if(correctLetterInWord == word.length){
-            setEndGameResult("You Win... Click ok to return Menu");
+            setEndGameResult("You Win \n Would You like to play again");
             mainController.loadMenu();
         }
 
@@ -93,18 +100,42 @@ public class GameWindowController {
     private void checkGameStatus(){
         if(imageQueue.size() == 1){
             dialogUtils.informationDialog("Prompt", prompt);
-        } else if (imageQueue.size()<1){
-            setEndGameResult("You Lose...Click ok to return Menu");
+        } else {
+            setEndGameResult("You Lose \n Would You like to play again");
         }
     }
 
     private void setEndGameResult(String header){
-        dialogUtils.informationDialog("End Game",header);
-        mainController.loadMenu();
+        Optional<ButtonType> confirmButton = dialogUtils.confirmDialog("End Game",header);
+        if (confirmButton.isPresent() && confirmButton.get() == ButtonType.OK){
+            MainMenuController mainMenuController = new MainMenuController();
+            mainMenuController.setMainController(mainController);
+            mainMenuController.startGame();
+        } else {
+            mainController.loadMenu();
+        }
+
+    }
+
+    private void prepareStartGame(){
+        File file = new File(FileWriter.GAME_STATUS);
+        gameWindowModel = new GameWindowModel();
+
+        if(file.exists()) {
+            Optional<ButtonType> optionalButtonType = dialogUtils.confirmDialog("Prepare game",
+                    "Would like to finish last save game? If not game status will be delete");
+            if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.OK) {
+                gameWindowModel = fileReader.readGameStatus();
+            } else {
+                boolean isDelete = file.delete();
+                System.out.println("File delete: " + isDelete);
+            }
+        }
+
     }
 
     private void loadFile(){
-        gameWindowModel = fileReader.readGameStatus();
+        prepareStartGame();
         word = gameWindowModel.getWordName();
         prompt = gameWindowModel.getWordPrompt();
         labelCategory.setText(gameWindowModel.getNameCategory());
@@ -176,9 +207,8 @@ public class GameWindowController {
 
     @FXML
     private void endGame(){
-        Optional<ButtonType> endConfirmButton = dialogUtils.confirmDialog("Save Game",
-                "Would You like to save this game ?");
-        if(imageQueue.size()>1 && endConfirmButton.isPresent() && endConfirmButton.get() == ButtonType.OK){
+        Optional<ButtonType> confirmButton= dialogUtils.confirmDialog("Save Game", "Would You like to save this game ?");
+        if(imageQueue.size()>1 && confirmButton.isPresent() && confirmButton.get() == ButtonType.OK){
             fileWriter.gameStatusWrite(gameWindowModel);
         }
         mainController.loadMenu();
