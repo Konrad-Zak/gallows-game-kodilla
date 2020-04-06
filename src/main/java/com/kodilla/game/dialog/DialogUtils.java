@@ -7,18 +7,19 @@ import java.util.Optional;
 
 public class DialogUtils {
 
-    public void dialogLastChance(String prompt){
+    public void informationDialog(String title,String header){
         Alert informationAlert = new Alert(Alert.AlertType.INFORMATION);
-        informationAlert.setTitle("Prompt");
-        informationAlert.setHeaderText(prompt);
+        informationAlert.setTitle(title);
+        informationAlert.setHeaderText(header);
         informationAlert.showAndWait();
     }
 
-    public Optional<ButtonType> confirmSaveGame(){
-        Alert confirmSave = new Alert(Alert.AlertType.CONFIRMATION);
-        confirmSave.setTitle("Save Game");
-        confirmSave.setHeaderText("Would you like to save this game?");
-        Optional<ButtonType> result = confirmSave.showAndWait();
-        return result;
+    public Optional<ButtonType> confirmDialog(String title, String header){
+        Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmAlert.setTitle(title);
+        confirmAlert.setHeaderText(header);
+        return confirmAlert.showAndWait();
     }
+
+
 }

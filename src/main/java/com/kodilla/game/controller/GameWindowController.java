@@ -20,6 +20,7 @@ public class GameWindowController {
     private Queue<Image> imageQueue;
     private char[] word;
     private String prompt;
+    private int correctLetterInWord = 0;
 
     private DialogUtils dialogUtils = new DialogUtils();
     private FileWriter fileWriter = new FileWriter();
@@ -48,7 +49,6 @@ public class GameWindowController {
         loadImageQueue();
         initializeKeyMap();
         loadFile();
-
         System.out.println(hashMap.size());
     }
 
@@ -73,21 +73,34 @@ public class GameWindowController {
                 Button button = buttons.get(i);
                 button.setText(Character.toString(charToggleButton));
                 letterCorrect = true;
+                correctLetterInWord++;
             }
         }
 
         if(!letterCorrect){
             gamePicture.setImage(imageQueue.poll());
             gameWindowModel.addQueueIterator();
-            injectInformationAlert();
+            checkGameStatus();
+        }
+
+        if(correctLetterInWord == word.length){
+            setEndGameResult("You Win... Click ok to return Menu");
+            mainController.loadMenu();
         }
 
     }
 
-    private void injectInformationAlert(){
+    private void checkGameStatus(){
         if(imageQueue.size() == 1){
-            dialogUtils.dialogLastChance(prompt);
+            dialogUtils.informationDialog("Prompt", prompt);
+        } else if (imageQueue.size()<1){
+            setEndGameResult("You Lose...Click ok to return Menu");
         }
+    }
+
+    private void setEndGameResult(String header){
+        dialogUtils.informationDialog("End Game",header);
+        mainController.loadMenu();
     }
 
     private void loadFile(){
@@ -107,17 +120,30 @@ public class GameWindowController {
 
     private void loadAllButtons(){
         Map<Character, Boolean> gameKeys = gameWindowModel.getGameKeys();
+        System.out.println("nowy " + gameKeys);
         for(Map.Entry<Character,Boolean> entry: gameKeys.entrySet()){
-            if(!entry.getValue()){
-                ToggleButton toggleButton = hashMap.get(entry.getKey());
-                toggleButton.setVisible(false);
+            if (!entry.getValue()){
+                changeButtons(entry.getKey());
+            }
+        }
+    }
 
-                for (int i = 0; i <word.length ; i++) {
-                    if(entry.getKey() == word[i]){
-                        Button button = buttons.get(i);
-                        button.setText(Character.toString(entry.getKey()));
-                    }
-                }
+    private void changeButtons( Character character){
+        deactivateToggleButton(character);
+        makeUpLetter(character);
+    }
+
+    private void deactivateToggleButton(Character character){
+        ToggleButton toggleButton = hashMap.get(character);
+        toggleButton.setVisible(false);
+    }
+
+    private void makeUpLetter(Character character){
+        for (int i = 0; i <word.length ; i++) {
+            if(character == word[i]){
+                Button button = buttons.get(i);
+                button.setText(Character.toString(character));
+                correctLetterInWord++;
             }
         }
     }
@@ -150,7 +176,8 @@ public class GameWindowController {
 
     @FXML
     private void endGame(){
-        Optional<ButtonType> endConfirmButton = dialogUtils.confirmSaveGame();
+        Optional<ButtonType> endConfirmButton = dialogUtils.confirmDialog("Save Game",
+                "Would You like to save this game ?");
         if(imageQueue.size()>1 && endConfirmButton.isPresent() && endConfirmButton.get() == ButtonType.OK){
             fileWriter.gameStatusWrite(gameWindowModel);
         }
