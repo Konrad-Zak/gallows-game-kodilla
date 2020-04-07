@@ -4,8 +4,11 @@ import com.kodilla.game.data.CategoryList;
 import com.kodilla.game.data.category.Category;
 import com.kodilla.game.data.model.Word;
 import com.kodilla.game.io.FileReader;
+import com.kodilla.game.io.FileWriter;
 
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -27,11 +30,9 @@ public class GameWindowModel implements Serializable {
 
     public void setFalseValue(Character character){
         gameKeys.replace(character,false);
-        System.out.println(gameKeys);
     }
 
     public Map<Character, Boolean> getGameKeys() {
-        System.out.println("tabela" + gameKeys);
         return gameKeys;
     }
 
@@ -61,12 +62,16 @@ public class GameWindowModel implements Serializable {
 
         gameKeys = keys.stream()
                 .collect(Collectors.toMap(k -> k, k -> true));
-        System.out.println(gameKeys);
     }
 
     private void loadSettingsMenu(){
-            FileReader fileReader = new FileReader();
+        FileReader fileReader = new FileReader();
+
+        if(Files.exists(Paths.get(FileWriter.SETTINGS_FILE_NAME))){
             settingsMenuModel = fileReader.readSettingsModel();
+        } else {
+            settingsMenuModel = new SettingsMenuModel();
+        }
     }
 
     private void initializeWord(){
@@ -85,8 +90,6 @@ public class GameWindowModel implements Serializable {
                 .filter(Map.Entry::getValue)
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
-
-        System.out.println(categoryList);
 
         int number = random.nextInt(categoryList.size());
         category = categories.get(categoryList.get(number));

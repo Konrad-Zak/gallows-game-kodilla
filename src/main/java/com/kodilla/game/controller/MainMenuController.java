@@ -41,6 +41,7 @@ public class MainMenuController {
     @FXML
     private void exit(){
         Platform.exit();
+        System.exit(0);
     }
 
     private void switchedScreen(String source){

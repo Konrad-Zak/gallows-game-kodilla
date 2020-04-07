@@ -10,8 +10,9 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-
-import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class GameWindowController {
@@ -22,6 +23,7 @@ public class GameWindowController {
     private char[] word;
     private String prompt;
     private int correctLetterInWord = 0;
+    private boolean letterCorrect;
 
     private DialogUtils dialogUtils = new DialogUtils();
     private FileWriter fileWriter = new FileWriter();
@@ -50,7 +52,6 @@ public class GameWindowController {
         loadImageQueue();
         initializeKeyMap();
         loadFile();
-        System.out.println(hashMap.size());
     }
 
     public void setMainController(MainController mainController) {
@@ -58,17 +59,30 @@ public class GameWindowController {
     }
 
     public void clickGameKey(){
-        boolean letterCorrect = false;
+        letterCorrect = false;
         String result = gameToggleButton.getSelectedToggle().toString();
         char charToggleButton = result.charAt(45);
-        gameWindowModel.setFalseValue(charToggleButton);
-        System.out.println(charToggleButton);
 
+        gameWindowModel.setFalseValue(charToggleButton);
+
+        disabledToggleButton(charToggleButton);
+
+        findLetterInWord(charToggleButton);
+
+        clickIncorrectToggleButton();
+
+        checkIfWinGame();
+
+    }
+
+    private void disabledToggleButton(char charToggleButton){
         if(hashMap.containsKey(charToggleButton)){
             ToggleButton toggleButton = hashMap.get(charToggleButton);
             toggleButton.setVisible(false);
         }
+    }
 
+    private void findLetterInWord(char charToggleButton){
         for (int i = 0; i <word.length ; i++) {
             if (word[i] == charToggleButton){
                 Button button = buttons.get(i);
@@ -77,7 +91,9 @@ public class GameWindowController {
                 correctLetterInWord++;
             }
         }
+    }
 
+    private void clickIncorrectToggleButton(){
         if(!letterCorrect){
             gamePicture.setImage(imageQueue.poll());
             gameWindowModel.addQueueIterator();
@@ -85,17 +101,8 @@ public class GameWindowController {
                 checkGameStatus();
             }
         }
-
-        if (imageQueue.size()<2){
-            checkGameStatus();
-        }
-
-        if(correctLetterInWord == word.length){
-            setEndGameResult("You Win \n Would You like to play again");
-            mainController.loadMenu();
-        }
-
     }
+
 
     private void checkGameStatus(){
         if(imageQueue.size() == 1){
@@ -107,6 +114,7 @@ public class GameWindowController {
 
     private void setEndGameResult(String header){
         Optional<ButtonType> confirmButton = dialogUtils.confirmDialog("End Game",header);
+
         if (confirmButton.isPresent() && confirmButton.get() == ButtonType.OK){
             MainMenuController mainMenuController = new MainMenuController();
             mainMenuController.setMainController(mainController);
@@ -114,44 +122,59 @@ public class GameWindowController {
         } else {
             mainController.loadMenu();
         }
+    }
 
+    private void checkIfWinGame(){
+        if(correctLetterInWord == word.length){
+            setEndGameResult("You Win... Would You like to play again");
+        }
     }
 
     private void prepareStartGame(){
-        File file = new File(FileWriter.GAME_STATUS);
         gameWindowModel = new GameWindowModel();
 
-        if(file.exists()) {
-            Optional<ButtonType> optionalButtonType = dialogUtils.confirmDialog("Prepare game",
-                    "Would like to finish last save game? If not game status will be delete");
-            if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.OK) {
-                gameWindowModel = fileReader.readGameStatus();
-            } else {
-                boolean isDelete = file.delete();
-                System.out.println("File delete: " + isDelete);
-            }
+        if(Files.exists(Paths.get(FileWriter.GAME_STATUS))) {
+            loadSaveGame();
         }
+    }
 
+    private void loadSaveGame(){
+        Optional<ButtonType> optionalButtonType = dialogUtils.confirmDialog("Prepare game",
+                "Would like to finish last save game? If not game status will be delete");
+
+        if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.OK) {
+            gameWindowModel = fileReader.readGameStatus();
+        } else {
+            dialogUtils.informationDialog("Delete save game file","File delete");
+            deleteFile();
+        }
+    }
+
+    private void deleteFile(){
+        try {
+             Files.delete(Paths.get(FileWriter.GAME_STATUS));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     private void loadFile(){
         prepareStartGame();
+        loadTextDate();
+        initMapWorld();
+        loadAllButtons();
+        setCurrentImage();
+    }
+
+    private void loadTextDate(){
         word = gameWindowModel.getWordName();
         prompt = gameWindowModel.getWordPrompt();
         labelCategory.setText(gameWindowModel.getNameCategory());
-        initMapWorld();
-        loadAllButtons();
-        System.out.println(hashMap);
-
-        for (int i = 0; i <gameWindowModel.getQueueIterator() ; i++) {
-            gamePicture.setImage(imageQueue.poll());
-        }
-
     }
 
     private void loadAllButtons(){
         Map<Character, Boolean> gameKeys = gameWindowModel.getGameKeys();
-        System.out.println("nowy " + gameKeys);
+
         for(Map.Entry<Character,Boolean> entry: gameKeys.entrySet()){
             if (!entry.getValue()){
                 changeButtons(entry.getKey());
@@ -179,13 +202,17 @@ public class GameWindowController {
         }
     }
 
+    private void setCurrentImage(){
+        for (int i = 0; i <gameWindowModel.getQueueIterator() ; i++) {
+            gamePicture.setImage(imageQueue.poll());
+        }
+    }
+
     private void initializeKeyMap(){
         List<ToggleButton> toggleButtons = Arrays.asList(q, w, e, r, t, y, u, i, o,
                 p, a, s, d, f, g, h, j, k, l, z, x, c, v, b, n, m);
 
-        for (ToggleButton toggleButtonList: toggleButtons){
-            hashMap.put(toggleButtonList.getText().charAt(0),toggleButtonList);
-        }
+        toggleButtons.forEach(k-> hashMap.put(k.getText().charAt(0),k));
     }
 
 
@@ -207,7 +234,9 @@ public class GameWindowController {
 
     @FXML
     private void endGame(){
-        Optional<ButtonType> confirmButton= dialogUtils.confirmDialog("Save Game", "Would You like to save this game ?");
+        Optional<ButtonType> confirmButton= dialogUtils.confirmDialog("Save Game",
+                "Would You like to save this game ?");
+
         if(imageQueue.size()>1 && confirmButton.isPresent() && confirmButton.get() == ButtonType.OK){
             fileWriter.gameStatusWrite(gameWindowModel);
         }
