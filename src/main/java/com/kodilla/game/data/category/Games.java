@@ -53,29 +53,29 @@ public class Games implements Category, Serializable {
         easyLevelWords.add(new Word("FPS", "First person shooter"));
         easyLevelWords.add(new Word("FRAG","Defeating an opponent from the opposing team"));
         easyLevelWords.add(new Word("ITEM","Object"));
-        easyLevelWords.add(new Word("NOOB", "A person representing low skills in the game"));
+        easyLevelWords.add(new Word("NOOB", "Person representing low skills in the game"));
         easyLevelWords.add(new Word("QUEST","Game world"));
         easyLevelWords.add(new Word("SKILL","Ability"));
     }
 
     private void initializeMediumList(){
-        mediumLevelWords.add(new Word("CHEATER","A person who uses mistakes in the game"));
+        mediumLevelWords.add(new Word("CHEATER","Person who uses mistakes in the game"));
         mediumLevelWords.add(new Word("CRITICAL","Critical blow"));
-        mediumLevelWords.add(new Word("RESPAWN","A place where players come back to life"));
+        mediumLevelWords.add(new Word("RESPAWN","Place where players come back to life"));
         mediumLevelWords.add(new Word("STREAMER","Player broadcasting how he plays"));
         mediumLevelWords.add(new Word("SUPPORT","Help other player"));
         mediumLevelWords.add(new Word("SANDBOX","Computer games design type"));
         mediumLevelWords.add(new Word("TUTORIAL","Learning game rule"));
         mediumLevelWords.add(new Word("CARAVAN","Easy loot"));
-        mediumLevelWords.add(new Word("CASHBACK","money return"));
+        mediumLevelWords.add(new Word("CASHBACK","Money return"));
         mediumLevelWords.add(new Word("CRAFTING","Character skills and traits"));
     }
 
     private void initializeHardList(){
         hardLevelWords.add(new Word("MULTIPLAYER","Game with other player"));
-        hardLevelWords.add(new Word("ASSASSINATE","kill in order"));
+        hardLevelWords.add(new Word("ASSASSINATE","Kill in order"));
         hardLevelWords.add(new Word("PANZERFAUST","Weapon"));
-        hardLevelWords.add(new Word("SCALABILITY","can calibrate"));
+        hardLevelWords.add(new Word("SCALABILITY","Can calibrate"));
         hardLevelWords.add(new Word("ACHIEVEMENT","Attainment"));
         hardLevelWords.add(new Word("RECONNAISSANCE","Diagnosis"));
         hardLevelWords.add(new Word("INTERNATIONAL","Rank tournament"));

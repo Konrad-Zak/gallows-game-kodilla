@@ -19,7 +19,7 @@ public class MainMenuController {
     }
 
     @FXML
-    private void startGame(){
+    public void startGame(){
         source = "/fxml/GameWindow.fxml";
         switchedScreen(source);
 
