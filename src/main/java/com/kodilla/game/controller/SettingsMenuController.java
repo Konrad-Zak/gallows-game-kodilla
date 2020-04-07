@@ -8,6 +8,9 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 
 public class SettingsMenuController {
 
@@ -88,7 +91,11 @@ public class SettingsMenuController {
     }
 
     private void loadFile(){
-        settingsMenuModel = fileReader.readSettingsModel();
+        if (Files.exists(Paths.get(FileWriter.SETTINGS_FILE_NAME))){
+            settingsMenuModel = fileReader.readSettingsModel();
+        } else {
+            settingsMenuModel = new SettingsMenuModel();
+        }
     }
 
     private void setControllerValue(){
